@@ -11,7 +11,21 @@ const HomePage = () => {
     router.push('/Auth/signin');  
   }, [router]);
 
-  return <div className='text-bold' style={{backgroundColor:'aqua', paddingLeft:'40px'}}>Redirecting To Login...</div>; 
+  return (
+    <div 
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: 'white',
+      }}
+    >
+      <div style={{ fontWeight: 'bold', fontSize: '1.5rem' }}>
+        Redirecting To Login...
+      </div>
+    </div>
+  );
 };
 
 export default HomePage;
