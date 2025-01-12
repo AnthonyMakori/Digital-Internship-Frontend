@@ -75,7 +75,7 @@ const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
-    const [showPassword, setShowPassword] = useState(false); // State for password visibility toggle
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -85,7 +85,7 @@ const SignIn = () => {
     };
 
     const handleClickShowPassword = () => {
-        setShowPassword((prev) => !prev); // Toggle password visibility
+        setShowPassword((prev) => !prev);
     };
 
     return (
@@ -154,8 +154,8 @@ const SignIn = () => {
                             fullWidth
                             style={{
                                 marginTop: '1.5rem',
-                                background: 'linear-gradient(45deg, #6a5acd, #836fff)',
-                                color: '#fff',
+                               /// background: 'linear-gradient(45deg, #6a5acd, #836fff)',
+                                color: 'primary',
                                 padding: '0.75rem',
                                 fontWeight: 'bold',
                             }}
