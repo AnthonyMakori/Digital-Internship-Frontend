@@ -87,36 +87,50 @@ const SignUp = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (formData.password !== formData.confirmPassword) {
-            openSnackbar('Passwords do not match.', 'error');
-            return;
-        }
-    
-        setLoading(true);
-        try {
-            const response = await fetch('http://localhost:8000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-                credentials:'include',
-            });
-    
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Registration failed');
-            }
-    
-            openSnackbar('Registration successful', 'success');
-            setFormData({ phone: '', name: '', email: '', password: '', confirmPassword: '' });
-        } catch (error) {
-            openSnackbar(error.message || 'Registration failed', 'error');
-        } finally {
-            setLoading(false);
-        }
-    };
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+        openSnackbar('Passwords do not match.', 'error');
+        return;
+    }
+
+    setLoading(true);
+
+    try {
+        const response = await fetch(`${apiUrl}/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: formData.name,
+                phone: formData.phone,
+                email: formData.email,
+                password: formData.password,
+            }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) throw new Error(data.message);
+
+        openSnackbar('Registration successful', 'success');
+
+        setFormData({
+            phone: '',
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+        });
+
+    } catch (error) {
+        openSnackbar(error.message || 'Registration failed', 'error');
+    } finally {
+        setLoading(false);
+    }
+};
+
     
 
     const openSnackbar = (message, type) => {
