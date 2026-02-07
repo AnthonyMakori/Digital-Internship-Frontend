@@ -9,9 +9,14 @@ import {
     FormControlLabel,
     Checkbox,
     IconButton,
+    CircularProgress,
+    Snackbar,
 } from '@mui/material';
 import { styled } from '@mui/system';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useRouter } from 'next/router';
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const Container = styled(Box)(({ theme }) => ({
     display: 'flex',
@@ -40,7 +45,6 @@ const StyledPaper = styled(Paper)({
     textAlign: 'center',
     borderRadius: '12px',
     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
-    minHeight: '550px',
 });
 
 const RightContainer = styled(Box)(({ theme }) => ({
@@ -66,133 +70,151 @@ const Overlay = styled(Box)({
     justifyContent: 'center',
     alignItems: 'center',
     color: 'white',
-    textAlign: 'center',
-    padding: '2rem',
-    zIndex: 1,
 });
 
 const SignIn = () => {
+
+    const router = useRouter();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [snackbar, setSnackbar] = useState({ open: false, message: '', type: 'success' });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Add your sign-in logic here
-        console.log('Email:', email);
-        console.log('Password:', password);
+    const openSnackbar = (message, type = 'success') => {
+        setSnackbar({ open: true, message, type });
     };
 
-    const handleClickShowPassword = () => {
-        setShowPassword((prev) => !prev);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        setLoading(true);
+
+        try {
+            const response = await fetch(`${apiUrl}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    password
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) throw new Error(data.message);
+
+            // ✅ Save token
+            localStorage.setItem('token', data.access_token);
+
+            // Optional remember me
+            if (rememberMe) {
+                localStorage.setItem('user', JSON.stringify(data.user));
+            }
+
+            openSnackbar('Login successful');
+
+            // Redirect after login
+            router.push('/admin');
+
+        } catch (error) {
+            openSnackbar(error.message || 'Login failed', 'error');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
         <Container>
             <LeftContainer>
-                <StyledPaper elevation={5} style={{ width: '80%' }}>
+                <StyledPaper elevation={5}>
+
                     <Typography variant="h4" gutterBottom>
                         Sign In
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" gutterBottom>
+
+                    <Typography variant="body2" color="textSecondary">
                         Access your account to explore more.
                     </Typography>
+
                     <form onSubmit={handleSubmit}>
+
                         <TextField
-                            label="Email Address"
-                            type="email"
-                            variant="outlined"
+                            label="Email or Phone"
                             fullWidth
                             margin="normal"
-                            placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
+
                         <TextField
                             label="Password"
-                            type={showPassword ? 'text' : 'password'} 
-                            variant="outlined"
+                            type={showPassword ? 'text' : 'password'}
                             fullWidth
                             margin="normal"
-                            placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                             InputProps={{
                                 endAdornment: (
-                                    <IconButton
-                                        onClick={handleClickShowPassword}
-                                        edge="end"
-                                    >
+                                    <IconButton onClick={() => setShowPassword(!showPassword)}>
                                         {showPassword ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 ),
                             }}
                         />
-                        <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
-                            <Link href="/Auth/password-reset" underline="hover" variant="body2">
-                                Forgot password?
-                            </Link>
-                        </Box>
+
                         <FormControlLabel
                             control={
                                 <Checkbox
                                     checked={rememberMe}
                                     onChange={(e) => setRememberMe(e.target.checked)}
-                                    color="primary"
                                 />
                             }
                             label="Remember me"
-                            style={{ marginTop: '0.5rem', textAlign: 'left', width: '100%' }}
                         />
+
                         <Button
                             type="submit"
                             variant="contained"
-                            color="primary"
                             fullWidth
-                            style={{
-                                marginTop: '1.5rem',
-                               /// background: 'linear-gradient(45deg, #6a5acd, #836fff)',
-                                color: 'primary',
-                                padding: '0.75rem',
-                                fontWeight: 'bold',
-                            }}
+                            sx={{ mt: 2 }}
+                            disabled={loading}
                         >
-                            Sign In
+                            {loading ? <CircularProgress size={24} /> : 'Sign In'}
                         </Button>
+
                         <Button
                             href="/Auth/signup"
                             variant="outlined"
-                            color="primary"
                             fullWidth
-                            style={{
-                                marginTop: '1rem',
-                                padding: '0.75rem',
-                                fontWeight: 'bold',
-                                border: '2px solid #6a5acd',
-                            }}
+                            sx={{ mt: 2 }}
                         >
-                            Create an Account
+                            Create Account
                         </Button>
+
                     </form>
-                    <Typography
-                        variant="caption"
-                        color="textSecondary"
-                        style={{ marginTop: '1rem', display: 'block' }}
-                    >
-                        By signing in, you agree to our{' '}
-                        <Link href="#">Terms of Service</Link> and{' '}
-                        <Link href="#">Privacy Policy</Link>.
-                    </Typography>
                 </StyledPaper>
             </LeftContainer>
+
             <RightContainer>
                 <Overlay>
                     <Typography variant="h4">Welcome Back!</Typography>
                 </Overlay>
             </RightContainer>
+
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={4000}
+                message={snackbar.message}
+                onClose={() => setSnackbar({ ...snackbar, open: false })}
+            />
+
         </Container>
     );
 };
