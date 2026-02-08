@@ -48,8 +48,8 @@ const App = () => (
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to="/auth/login" replace />} />
-            <Route path="/auth/login" element={<Login />} />
+            <Route path="/" element={<Navigate to="/auth/signin" replace />} />
+            <Route path="/auth/signin" element={<Login />} />
 
             {/* Student Routes */}
             <Route path="/student/dashboard" element={<ProtectedRoute allowedRoles={['student']}><StudentDashboard /></ProtectedRoute>} />
