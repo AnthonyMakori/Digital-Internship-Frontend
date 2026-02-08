@@ -18,7 +18,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const Container = styled(Box)(({ theme }) => ({
     display: 'flex',

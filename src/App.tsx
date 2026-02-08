@@ -38,6 +38,8 @@ import AdminSettings from "./pages/admin/Settings";
 
 import NotFound from "./pages/NotFound";
 
+import Signup from "./pages/auth/signup";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -50,6 +52,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Navigate to="/auth/signin" replace />} />
             <Route path="/auth/signin" element={<Login />} />
+
+            <Route path="/auth/signup" element={<Signup />} />
+            
 
             {/* Student Routes */}
             <Route path="/student/dashboard" element={<ProtectedRoute allowedRoles={['student']}><StudentDashboard /></ProtectedRoute>} />
