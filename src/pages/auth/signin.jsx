@@ -74,7 +74,7 @@ const Overlay = styled(Box)({
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); // ✅ FIXED
+  const { login } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -102,12 +102,12 @@ const SignIn = () => {
 
       if (!response.ok) throw new Error(data.message || 'Login failed');
 
-      // ✅ Save token + user
+      // Save token + user
       login(data.user, data.access_token);
 
       openSnackbar('Login successful');
 
-      // ✅ Role-based redirect (Capital letters preserved)
+      // Role-based redirect 
       const roleRedirects = {
         Student: '/student/dashboard',
         Company: '/company/dashboard',

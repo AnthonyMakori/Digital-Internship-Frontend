@@ -15,7 +15,7 @@ interface NavItem {
 }
 
 const roleNavItems: Record<UserRole, NavItem[]> = {
-  student: [
+  Student: [
     { label: 'Dashboard', path: '/student/dashboard', icon: LayoutDashboard },
     { label: 'Internships', path: '/student/internships', icon: Briefcase },
     { label: 'Applications', path: '/student/applications', icon: FileText },
@@ -23,7 +23,7 @@ const roleNavItems: Record<UserRole, NavItem[]> = {
     { label: 'Logbook', path: '/student/logbook', icon: BookOpen },
     { label: 'Final Report', path: '/student/final-report', icon: ClipboardList },
   ],
-  company: [
+  Company: [
     { label: 'Dashboard', path: '/company/dashboard', icon: LayoutDashboard },
     { label: 'Vacancies', path: '/company/vacancies', icon: Briefcase },
     { label: 'Applications', path: '/company/applications', icon: FileText },
@@ -31,7 +31,7 @@ const roleNavItems: Record<UserRole, NavItem[]> = {
     { label: 'Logbooks', path: '/company/logbooks', icon: BookOpen },
     { label: 'Evaluations', path: '/company/evaluations', icon: Star },
   ],
-  lecturer: [
+  Lecturer: [
     { label: 'Dashboard', path: '/lecturer/dashboard', icon: LayoutDashboard },
     { label: 'Students', path: '/lecturer/students', icon: GraduationCap },
     { label: 'Logbooks', path: '/lecturer/logbooks', icon: BookOpen },
@@ -45,9 +45,9 @@ const roleNavItems: Record<UserRole, NavItem[]> = {
 };
 
 const roleLabels: Record<UserRole, string> = {
-  student: 'Student Portal',
-  company: 'Company Portal',
-  lecturer: 'Lecturer Portal',
+  Student: 'Student Portal',
+  Company: 'Company Portal',
+  Lecturer: 'Lecturer Portal',
   admin: 'Admin Panel',
 };
 
