@@ -64,7 +64,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   const handleLogout = () => {
     logout();
-    navigate('/auth/login');
+    navigate('/auth/signin');
   };
 
   const SidebarContent = () => (
