@@ -1,73 +1,59 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import type { UserRole } from '@/utils/constants';
-import { demoCredentials, type User } from '@/utils/mockData';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-}
+const AuthContext = createContext(null);
 
-interface AuthContextType extends AuthState {
-  login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  logout: () => void;
-  switchRole: (role: UserRole) => void;
-}
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-const AuthContext = createContext<AuthContextType | null>(null);
+  // ✅ Load auth from localStorage on app start
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    const storedToken = localStorage.getItem('token');
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = useState<AuthState>({
-    user: null,
-    isAuthenticated: false,
-    isLoading: false,
-  });
-
-  const login = useCallback(async (email: string, password: string) => {
-    setState((s) => ({ ...s, isLoading: true }));
-    // Simulate API call
-    await new Promise((r) => setTimeout(r, 600));
-
-    const cred = demoCredentials.find((c) => c.email === email && c.password === password);
-    if (cred) {
-      const user: User = {
-        id: `${cred.role}-user`,
-        name: cred.name,
-        email: cred.email,
-        role: cred.role,
-        status: 'active',
-      };
-      setState({ user, isAuthenticated: true, isLoading: false });
-      return { success: true };
+    if (storedUser && storedToken) {
+      setUser(JSON.parse(storedUser));
+      setToken(storedToken);
     }
-    setState((s) => ({ ...s, isLoading: false }));
-    return { success: false, error: 'Invalid credentials' };
+
+    setIsLoading(false);
   }, []);
 
-  const logout = useCallback(() => {
-    setState({ user: null, isAuthenticated: false, isLoading: false });
-  }, []);
+  // ✅ Login using API response
+  const login = (userData, accessToken) => {
+    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', accessToken);
 
-  const switchRole = useCallback((role: UserRole) => {
-    const cred = demoCredentials.find((c) => c.role === role);
-    if (cred) {
-      setState({
-        user: { id: `${role}-user`, name: cred.name, email: cred.email, role, status: 'active' },
-        isAuthenticated: true,
-        isLoading: false,
-      });
-    }
-  }, []);
+    setUser(userData);
+    setToken(accessToken);
+  };
+
+  // ✅ Logout
+  const logout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+
+    setUser(null);
+    setToken(null);
+  };
 
   return (
-    <AuthContext.Provider value={{ ...state, login, logout, switchRole }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        token,
+        isAuthenticated: !!user,
+        isLoading,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
 
 export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
-  return ctx;
+  return useContext(AuthContext);
 }

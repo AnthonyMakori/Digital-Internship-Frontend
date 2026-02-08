@@ -13,7 +13,8 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -73,6 +74,7 @@ const Overlay = styled(Box)({
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { login } = useAuth(); // ✅ FIXED
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -100,24 +102,21 @@ const SignIn = () => {
 
       if (!response.ok) throw new Error(data.message || 'Login failed');
 
-      // Save token
-      localStorage.setItem('token', data.access_token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      // ✅ Save token + user
+      login(data.user, data.access_token);
 
       openSnackbar('Login successful');
 
-      // Role-based redirect
-      const role = data.user.role;
+      // ✅ Role-based redirect (Capital letters preserved)
+      const roleRedirects = {
+        Student: '/student/dashboard',
+        Company: '/company/dashboard',
+        Lecturer: '/lecturer/dashboard',
+        Admin: '/admin/dashboard',
+      };
 
-      if (role === 'Company') {
-        navigate('/admin');
-      } else if (role === 'Student') {
-        navigate('/dashboard/interns');
-      } else if (role === 'Lecturer') {
-        navigate('/dashboard/employers');
-      } else {
-        navigate('/');
-      }
+      navigate(roleRedirects[data.user.role] || '/auth/signin');
+
     } catch (error) {
       openSnackbar(error.message, 'error');
     } finally {
