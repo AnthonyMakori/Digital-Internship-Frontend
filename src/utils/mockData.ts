@@ -8,11 +8,6 @@ export interface User {
   avatar?: string;
   department?: string;
   status: 'active' | 'inactive';
-  // New organizational fields
-  universityId?: string;
-  facultyId?: string;
-  companyId?: string;
-  companyRole?: 'admin' | 'supervisor' | 'staff';
 }
 
 export interface Vacancy {
@@ -86,23 +81,16 @@ export interface Evaluation {
   submittedAt: string;
 }
 
-// Mock Users with university and faculty assignments
+// Mock Users
 export const mockUsers: User[] = [
-  // Students at UoN School of Computing
-  { id: 'stu-1', name: 'Alice Mwangi', email: 'alice@student.edu', role: 'student', department: 'Computer Science', status: 'active', universityId: 'uni-1', facultyId: 'fac-1' },
-  { id: 'stu-2', name: 'Brian Ochieng', email: 'brian@student.edu', role: 'student', department: 'Information Technology', status: 'active', universityId: 'uni-1', facultyId: 'fac-1' },
-  { id: 'stu-3', name: 'Carol Wanjiku', email: 'carol@student.edu', role: 'student', department: 'Software Engineering', status: 'active', universityId: 'uni-1', facultyId: 'fac-1' },
-  // Students at different universities/faculties
-  { id: 'stu-4', name: 'David Kamau', email: 'david@student.edu', role: 'student', department: 'Data Science', status: 'inactive', universityId: 'uni-2', facultyId: 'fac-4' },
-  { id: 'stu-5', name: 'Esther Njoki', email: 'esther@student.edu', role: 'student', department: 'Business Administration', status: 'active', universityId: 'uni-1', facultyId: 'fac-3' },
-  { id: 'stu-6', name: 'Francis Mwamba', email: 'francis@student.edu', role: 'student', department: 'Computer Science', status: 'active', universityId: 'uni-4', facultyId: 'fac-6' },
-  // Companies with company admin role
-  { id: 'com-1', name: 'TechCorp Ltd', email: 'hr@techcorp.co', role: 'company', department: 'Technology', status: 'active', companyId: 'com-1', companyRole: 'admin' },
-  { id: 'com-2', name: 'DataFlow Inc', email: 'hr@dataflow.co', role: 'company', department: 'Data Analytics', status: 'active', companyId: 'com-2', companyRole: 'admin' },
-  // Lecturers with university/faculty - Dr. Sarah is at UoN School of Computing
-  { id: 'lec-1', name: 'Dr. Sarah Njeri', email: 'sarah@university.edu', role: 'lecturer', department: 'Computer Science', status: 'active', universityId: 'uni-1', facultyId: 'fac-1' },
-  // Prof. James is at Kenyatta Faculty of IT
-  { id: 'lec-2', name: 'Prof. James Otieno', email: 'james@university.edu', role: 'lecturer', department: 'Information Technology', status: 'active', universityId: 'uni-2', facultyId: 'fac-4' },
+  { id: 'stu-1', name: 'Alice Mwangi', email: 'alice@student.edu', role: 'student', department: 'Computer Science', status: 'active' },
+  { id: 'stu-2', name: 'Brian Ochieng', email: 'brian@student.edu', role: 'student', department: 'Information Technology', status: 'active' },
+  { id: 'stu-3', name: 'Carol Wanjiku', email: 'carol@student.edu', role: 'student', department: 'Software Engineering', status: 'active' },
+  { id: 'stu-4', name: 'David Kamau', email: 'david@student.edu', role: 'student', department: 'Data Science', status: 'inactive' },
+  { id: 'com-1', name: 'TechCorp Ltd', email: 'hr@techcorp.co', role: 'company', department: 'Technology', status: 'active' },
+  { id: 'com-2', name: 'DataFlow Inc', email: 'hr@dataflow.co', role: 'company', department: 'Data Analytics', status: 'active' },
+  { id: 'lec-1', name: 'Dr. Sarah Njeri', email: 'sarah@university.edu', role: 'lecturer', department: 'Computer Science', status: 'active' },
+  { id: 'lec-2', name: 'Prof. James Otieno', email: 'james@university.edu', role: 'lecturer', department: 'Information Technology', status: 'active' },
   { id: 'adm-1', name: 'System Admin', email: 'admin@system.edu', role: 'admin', status: 'active' },
 ];
 

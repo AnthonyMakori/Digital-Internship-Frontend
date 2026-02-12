@@ -7,7 +7,8 @@ import { AuthProvider } from "@/context/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 
 // Auth
-import Login from "./pages/auth/Login";
+import Login from "./pages/auth/signin";
+import Signup from "./pages/auth/signup";
 
 // Student
 import StudentDashboard from "./pages/student/Dashboard";
@@ -25,7 +26,6 @@ import CompanyInterns from "./pages/company/Interns";
 import CompanyLogbooks from "./pages/company/Logbooks";
 import CompanyEvaluations from "./pages/company/Evaluations";
 import CompanyTeam from "./pages/company/Team";
-import CompanySettings from "./pages/company/CompanySettings";
 
 // Lecturer
 import LecturerDashboard from "./pages/lecturer/Dashboard";
@@ -47,45 +47,52 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to="/auth/login" replace />} />
-            <Route path="/auth/login" element={<Login />} />
 
-            {/* Student Routes */}
-            <Route path="/student/dashboard" element={<ProtectedRoute allowedRoles={['student']}><StudentDashboard /></ProtectedRoute>} />
-            <Route path="/student/internships" element={<ProtectedRoute allowedRoles={['student']}><StudentInternships /></ProtectedRoute>} />
-            <Route path="/student/applications" element={<ProtectedRoute allowedRoles={['student']}><StudentApplications /></ProtectedRoute>} />
-            <Route path="/student/attachment" element={<ProtectedRoute allowedRoles={['student']}><StudentAttachment /></ProtectedRoute>} />
-            <Route path="/student/logbook" element={<ProtectedRoute allowedRoles={['student']}><StudentLogbook /></ProtectedRoute>} />
-            <Route path="/student/final-report" element={<ProtectedRoute allowedRoles={['student']}><StudentFinalReport /></ProtectedRoute>} />
+            <Route path="/" element={<Navigate to="/auth/signin" replace />} />
 
-            {/* Company Routes */}
-            <Route path="/company/dashboard" element={<ProtectedRoute allowedRoles={['company']}><CompanyDashboard /></ProtectedRoute>} />
-            <Route path="/company/vacancies" element={<ProtectedRoute allowedRoles={['company']}><CompanyVacancies /></ProtectedRoute>} />
-            <Route path="/company/applications" element={<ProtectedRoute allowedRoles={['company']}><CompanyApplications /></ProtectedRoute>} />
-            <Route path="/company/interns" element={<ProtectedRoute allowedRoles={['company']}><CompanyInterns /></ProtectedRoute>} />
-            <Route path="/company/logbooks" element={<ProtectedRoute allowedRoles={['company']}><CompanyLogbooks /></ProtectedRoute>} />
-            <Route path="/company/evaluations" element={<ProtectedRoute allowedRoles={['company']}><CompanyEvaluations /></ProtectedRoute>} />
-            <Route path="/company/team" element={<ProtectedRoute allowedRoles={['company']}><CompanyTeam /></ProtectedRoute>} />
-            <Route path="/company/settings" element={<ProtectedRoute allowedRoles={['company']}><CompanySettings /></ProtectedRoute>} />
+            <Route path="/auth/signin" element={<Login />} />
+            <Route path="/auth/signup" element={<Signup />} />
 
-            {/* Lecturer Routes */}
-            <Route path="/lecturer/dashboard" element={<ProtectedRoute allowedRoles={['lecturer']}><LecturerDashboard /></ProtectedRoute>} />
-            <Route path="/lecturer/students" element={<ProtectedRoute allowedRoles={['lecturer']}><LecturerStudents /></ProtectedRoute>} />
-            <Route path="/lecturer/logbooks" element={<ProtectedRoute allowedRoles={['lecturer']}><LecturerLogbooks /></ProtectedRoute>} />
-            <Route path="/lecturer/evaluations" element={<ProtectedRoute allowedRoles={['lecturer']}><LecturerEvaluations /></ProtectedRoute>} />
+            {/* Student */}
+            <Route path="/student/dashboard" element={<ProtectedRoute allowedRoles={['Student']}><StudentDashboard /></ProtectedRoute>} />
+            <Route path="/student/internships" element={<ProtectedRoute allowedRoles={['Student']}><StudentInternships /></ProtectedRoute>} />
+            <Route path="/student/applications" element={<ProtectedRoute allowedRoles={['Student']}><StudentApplications /></ProtectedRoute>} />
+            <Route path="/student/attachment" element={<ProtectedRoute allowedRoles={['Student']}><StudentAttachment /></ProtectedRoute>} />
+            <Route path="/student/logbook" element={<ProtectedRoute allowedRoles={['Student']}><StudentLogbook /></ProtectedRoute>} />
+            <Route path="/student/final-report" element={<ProtectedRoute allowedRoles={['Student']}><StudentFinalReport /></ProtectedRoute>} />
 
-            {/* Admin Routes */}
+            {/* Company */}
+            <Route path="/company/dashboard" element={<ProtectedRoute allowedRoles={['Company']}><CompanyDashboard /></ProtectedRoute>} />
+            <Route path="/company/vacancies" element={<ProtectedRoute allowedRoles={['Company']}><CompanyVacancies /></ProtectedRoute>} />
+            <Route path="/company/applications" element={<ProtectedRoute allowedRoles={['Company']}><CompanyApplications /></ProtectedRoute>} />
+            <Route path="/company/interns" element={<ProtectedRoute allowedRoles={['Company']}><CompanyInterns /></ProtectedRoute>} />
+            <Route path="/company/logbooks" element={<ProtectedRoute allowedRoles={['Company']}><CompanyLogbooks /></ProtectedRoute>} />
+            <Route path="/company/evaluations" element={<ProtectedRoute allowedRoles={['Company']}><CompanyEvaluations /></ProtectedRoute>} />
+            <Route path="/company/team" element={<ProtectedRoute allowedRoles={['Company']}><CompanyTeam /></ProtectedRoute>} />
+
+            
+
+            {/* Lecturer */}
+            <Route path="/lecturer/dashboard" element={<ProtectedRoute allowedRoles={['Lecturer']}><LecturerDashboard /></ProtectedRoute>} />
+            <Route path="/lecturer/students" element={<ProtectedRoute allowedRoles={['Lecturer']}><LecturerStudents /></ProtectedRoute>} />
+            <Route path="/lecturer/logbooks" element={<ProtectedRoute allowedRoles={['Lecturer']}><LecturerLogbooks /></ProtectedRoute>} />
+            <Route path="/lecturer/evaluations" element={<ProtectedRoute allowedRoles={['Lecturer']}><LecturerEvaluations /></ProtectedRoute>} />
+
+            {/* ✅ Admin FIXED */}
             <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /></ProtectedRoute>} />
             <Route path="/admin/users" element={<ProtectedRoute allowedRoles={['admin']}><AdminUsers /></ProtectedRoute>} />
             <Route path="/admin/settings" element={<ProtectedRoute allowedRoles={['admin']}><AdminSettings /></ProtectedRoute>} />
 
             <Route path="*" element={<NotFound />} />
+
           </Routes>
         </BrowserRouter>
       </AuthProvider>
+
     </TooltipProvider>
   </QueryClientProvider>
 );
