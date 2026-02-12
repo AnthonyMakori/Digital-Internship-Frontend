@@ -1,7 +1,7 @@
 export const ROLES = {
-  STUDENT: 'Student',
-  COMPANY: 'Company',
-  LECTURER: 'Lecturer',
+  STUDENT: 'student',
+  COMPANY: 'company',
+  LECTURER: 'lecturer',
   ADMIN: 'admin',
 } as const;
 
