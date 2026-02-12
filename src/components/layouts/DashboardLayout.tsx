@@ -4,7 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import {
   LayoutDashboard, Briefcase, FileText, BookOpen, ClipboardList, Users,
   Settings, ChevronLeft, ChevronRight, LogOut, Building2, GraduationCap,
-  Star, Menu, X, UserCircle,
+  Star, Menu, X, UserCircle,UsersRound
 } from 'lucide-react';
 import type { UserRole } from '@/utils/constants';
 
@@ -30,6 +30,8 @@ const roleNavItems: Record<UserRole, NavItem[]> = {
     { label: 'Interns', path: '/company/interns', icon: Users },
     { label: 'Logbooks', path: '/company/logbooks', icon: BookOpen },
     { label: 'Evaluations', path: '/company/evaluations', icon: Star },
+    { label: 'Team', path: '/company/team', icon: UsersRound },
+
   ],
   Lecturer: [
     { label: 'Dashboard', path: '/lecturer/dashboard', icon: LayoutDashboard },

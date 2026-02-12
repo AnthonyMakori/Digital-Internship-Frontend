@@ -25,6 +25,7 @@ import CompanyApplications from "./pages/company/Applications";
 import CompanyInterns from "./pages/company/Interns";
 import CompanyLogbooks from "./pages/company/Logbooks";
 import CompanyEvaluations from "./pages/company/Evaluations";
+import CompanyTeam from "./pages/company/Team";
 
 // Lecturer
 import LecturerDashboard from "./pages/lecturer/Dashboard";
@@ -71,6 +72,9 @@ const App = () => (
             <Route path="/company/interns" element={<ProtectedRoute allowedRoles={['Company']}><CompanyInterns /></ProtectedRoute>} />
             <Route path="/company/logbooks" element={<ProtectedRoute allowedRoles={['Company']}><CompanyLogbooks /></ProtectedRoute>} />
             <Route path="/company/evaluations" element={<ProtectedRoute allowedRoles={['Company']}><CompanyEvaluations /></ProtectedRoute>} />
+            <Route path="/company/team" element={<ProtectedRoute allowedRoles={['Company']}><CompanyTeam /></ProtectedRoute>} />
+
+            
 
             {/* Lecturer */}
             <Route path="/lecturer/dashboard" element={<ProtectedRoute allowedRoles={['Lecturer']}><LecturerDashboard /></ProtectedRoute>} />
