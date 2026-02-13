@@ -31,6 +31,8 @@ const roleNavItems: Record<UserRole, NavItem[]> = {
     { label: 'Logbooks', path: '/company/logbooks', icon: BookOpen },
     { label: 'Evaluations', path: '/company/evaluations', icon: Star },
     { label: 'Team', path: '/company/team', icon: UsersRound },
+    { label: 'Settings', path: '/company/settings', icon: Settings },
+
 
   ],
   Lecturer: [

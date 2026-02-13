@@ -83,14 +83,14 @@ export interface Evaluation {
 
 // Mock Users
 export const mockUsers: User[] = [
-  { id: 'stu-1', name: 'Alice Mwangi', email: 'alice@student.edu', role: 'student', department: 'Computer Science', status: 'active' },
-  { id: 'stu-2', name: 'Brian Ochieng', email: 'brian@student.edu', role: 'student', department: 'Information Technology', status: 'active' },
-  { id: 'stu-3', name: 'Carol Wanjiku', email: 'carol@student.edu', role: 'student', department: 'Software Engineering', status: 'active' },
-  { id: 'stu-4', name: 'David Kamau', email: 'david@student.edu', role: 'student', department: 'Data Science', status: 'inactive' },
-  { id: 'com-1', name: 'TechCorp Ltd', email: 'hr@techcorp.co', role: 'company', department: 'Technology', status: 'active' },
-  { id: 'com-2', name: 'DataFlow Inc', email: 'hr@dataflow.co', role: 'company', department: 'Data Analytics', status: 'active' },
-  { id: 'lec-1', name: 'Dr. Sarah Njeri', email: 'sarah@university.edu', role: 'lecturer', department: 'Computer Science', status: 'active' },
-  { id: 'lec-2', name: 'Prof. James Otieno', email: 'james@university.edu', role: 'lecturer', department: 'Information Technology', status: 'active' },
+  { id: 'stu-1', name: 'Alice Mwangi', email: 'alice@student.edu', role: 'Student', department: 'Computer Science', status: 'active' },
+  { id: 'stu-2', name: 'Brian Ochieng', email: 'brian@student.edu', role: 'Student', department: 'Information Technology', status: 'active' },
+  { id: 'stu-3', name: 'Carol Wanjiku', email: 'carol@student.edu', role: 'Student', department: 'Software Engineering', status: 'active' },
+  { id: 'stu-4', name: 'David Kamau', email: 'david@student.edu', role: 'Student', department: 'Data Science', status: 'inactive' },
+  { id: 'com-1', name: 'TechCorp Ltd', email: 'hr@techcorp.co', role: 'Company', department: 'Technology', status: 'active' },
+  { id: 'com-2', name: 'DataFlow Inc', email: 'hr@dataflow.co', role: 'Company', department: 'Data Analytics', status: 'active' },
+  { id: 'lec-1', name: 'Dr. Sarah Njeri', email: 'sarah@university.edu', role: 'Lecturer', department: 'Computer Science', status: 'active' },
+  { id: 'lec-2', name: 'Prof. James Otieno', email: 'james@university.edu', role: 'Lecturer', department: 'Information Technology', status: 'active' },
   { id: 'adm-1', name: 'System Admin', email: 'admin@system.edu', role: 'admin', status: 'active' },
 ];
 

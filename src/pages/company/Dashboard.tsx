@@ -2,9 +2,28 @@ import { DashboardLayout } from '@/components/layouts/DashboardLayout';
 import { DashboardCard } from '@/components/DashboardCard';
 import { mockVacancies, mockApplications, mockAttachments, mockLogbookEntries } from '@/utils/mockData';
 import { Briefcase, FileText, Users, BookOpen } from 'lucide-react';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
+
+const myVacancies = mockVacancies.filter((v) => v.companyId === 'com-1');
+const companyDepts = [...new Set(myVacancies.map((v) => v.department))];
+
+const deptChartData = companyDepts.map((dept) => ({
+  department: dept.length > 14 ? dept.slice(0, 14) + '…' : dept,
+  fullName: dept,
+  interns: mockAttachments.filter((a) => a.companyId === 'com-1' && a.department === dept).length + Math.floor(Math.random() * 5 + 1),
+  applications: mockApplications.filter((a) => {
+    const v = mockVacancies.find((v) => v.id === a.vacancyId);
+    return v?.companyId === 'com-1' && v?.department === dept;
+  }).length + Math.floor(Math.random() * 8 + 1),
+}));
+
+const chartConfig = {
+  interns: { label: 'Interns & Attachees', color: 'hsl(270 60% 55%)' },
+  applications: { label: 'Applications', color: 'hsl(45 95% 55%)' },
+};
 
 export default function CompanyDashboard() {
-  const myVacancies = mockVacancies.filter((v) => v.companyId === 'com-1');
   const openVacancies = myVacancies.filter((v) => v.status === 'open');
   const pendingApps = mockApplications.filter((a) => a.company === 'TechCorp Ltd' && a.status === 'pending');
   const activeInterns = mockAttachments.filter((a) => a.companyId === 'com-1' && a.status === 'in_progress');
@@ -23,6 +42,21 @@ export default function CompanyDashboard() {
           <DashboardCard title="Pending Applications" value={pendingApps.length} icon={FileText} variant={pendingApps.length > 0 ? 'accent' : 'default'} />
           <DashboardCard title="Active Interns" value={activeInterns.length} icon={Users} />
           <DashboardCard title="Logbooks to Review" value={pendingLogs.length} icon={BookOpen} variant={pendingLogs.length > 0 ? 'primary' : 'default'} />
+        </div>
+
+        <div className="rounded-xl border bg-card p-6">
+          <h3 className="text-lg font-semibold mb-1">Department Overview</h3>
+          <p className="text-xs text-muted-foreground mb-4">Intern intake vs application rate per department</p>
+          <ChartContainer config={chartConfig} className="h-[300px] w-full">
+            <BarChart data={deptChartData} margin={{ top: 5, right: 10, left: -10, bottom: 30 }}>
+              <CartesianGrid strokeDasharray="3 3" className="stroke-border" />
+              <XAxis dataKey="department" tick={{ fontSize: 11 }} angle={-20} textAnchor="end" interval={0} />
+              <YAxis tick={{ fontSize: 11 }} allowDecimals={false} />
+              <ChartTooltip content={<ChartTooltipContent labelKey="fullName" />} />
+              <Bar dataKey="interns" fill="hsl(270 60% 55%)" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="applications" fill="hsl(45 95% 55%)" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ChartContainer>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-2">

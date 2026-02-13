@@ -26,6 +26,8 @@ import CompanyInterns from "./pages/company/Interns";
 import CompanyLogbooks from "./pages/company/Logbooks";
 import CompanyEvaluations from "./pages/company/Evaluations";
 import CompanyTeam from "./pages/company/Team";
+import CompanySettings from "./pages/company/CompanySettings";
+
 
 // Lecturer
 import LecturerDashboard from "./pages/lecturer/Dashboard";
@@ -73,6 +75,7 @@ const App = () => (
             <Route path="/company/logbooks" element={<ProtectedRoute allowedRoles={['Company']}><CompanyLogbooks /></ProtectedRoute>} />
             <Route path="/company/evaluations" element={<ProtectedRoute allowedRoles={['Company']}><CompanyEvaluations /></ProtectedRoute>} />
             <Route path="/company/team" element={<ProtectedRoute allowedRoles={['Company']}><CompanyTeam /></ProtectedRoute>} />
+            <Route path="/company/settings" element={<ProtectedRoute allowedRoles={['Company']}><CompanySettings /></ProtectedRoute>} />
 
             
 
@@ -82,7 +85,7 @@ const App = () => (
             <Route path="/lecturer/logbooks" element={<ProtectedRoute allowedRoles={['Lecturer']}><LecturerLogbooks /></ProtectedRoute>} />
             <Route path="/lecturer/evaluations" element={<ProtectedRoute allowedRoles={['Lecturer']}><LecturerEvaluations /></ProtectedRoute>} />
 
-            {/* ✅ Admin FIXED */}
+            {/* Admin */}
             <Route path="/admin/dashboard" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /></ProtectedRoute>} />
             <Route path="/admin/users" element={<ProtectedRoute allowedRoles={['admin']}><AdminUsers /></ProtectedRoute>} />
             <Route path="/admin/settings" element={<ProtectedRoute allowedRoles={['admin']}><AdminSettings /></ProtectedRoute>} />

@@ -92,7 +92,7 @@ export default function CompanyTeam() {
             value={m.role} 
             onChange={(e) => handleChangeRole(m.id, e.target.value as 'admin' | 'supervisor' | 'staff')}
             className="rounded-md border bg-card px-2 py-1 text-xs font-medium outline-none focus:border-primary capitalize"
-            disabled={m.role === 'admin' && m.userId === user?.id} // Can't demote yourself as admin
+            disabled={m.role === 'admin' && m.userId === user?.id} 
           >
             <option value="staff">Staff</option>
             <option value="supervisor">Supervisor</option>
