@@ -41,7 +41,7 @@ const roleNavItems: Record<UserRole, NavItem[]> = {
     { label: 'Logbooks', path: '/lecturer/logbooks', icon: BookOpen },
     { label: 'Evaluations', path: '/lecturer/evaluations', icon: Star },
   ],
-  admin: [
+  Admin: [
     { label: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     { label: 'Users', path: '/admin/users', icon: Users },
     { label: 'Settings', path: '/admin/settings', icon: Settings },
@@ -52,7 +52,7 @@ const roleLabels: Record<UserRole, string> = {
   Student: 'Student Portal',
   Company: 'Company Portal',
   Lecturer: 'Lecturer Portal',
-  admin: 'Admin Panel',
+  Admin: 'Admin Panel',
 };
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
