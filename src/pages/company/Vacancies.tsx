@@ -19,7 +19,7 @@ interface Vacancy {
 }
 
 const API_URL = 'http://localhost:8000/api';
-const COMPANY_ID = 1; // Later replace with logged-in company
+const COMPANY_ID = 1; 
 
 export default function CompanyVacancies() {
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
